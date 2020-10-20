@@ -1,0 +1,470 @@
+#include <TridentTD_LineNotify.h>
+#define SSID        "D@y"      // บรรทัดที่ 11 ให้ใส่ ชื่อ Wifi ที่จะเชื่อมต่อ
+#define PASSWORD    "12345668"     // บรรทัดที่ 12 ใส่ รหัส Wifi
+#define LINE_TOKEN  "TK5zbNevl0gHynQjVdMbPUfKGC1IQgycvYOHnSK55Hi"   // บรรทัดที่ 13 ใส่ รหัส TOKEN ที่ได้มาจากข้างบน
+#include "DHT.h"
+#define DHTPIN D1
+#define DHTTYPE DHT11
+DHT dht(DHTPIN, DHTTYPE);
+void setup() {
+  dht.begin();
+  Serial.begin(115200); Serial.println();
+  Serial.println(LINE.getVersion());
+
+  WiFi.begin(SSID, PASSWORD);
+  Serial.printf("WiFi connecting to %s\n",  SSID);
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(400);
+  }
+  Serial.printf("\nWiFi connected\nIP : ");
+  Serial.println(WiFi.localIP());
+
+  // กำหนด Line Token
+  LINE.setToken(LINE_TOKEN);
+  LINE.notify("ระบบขัดข้อง จ.ส.อ.เดชาฯ โทร.099-4743309");
+}
+
+void loop() {
+  delay(1000000);
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float f = dht.readTemperature(true);
+  if (isnan(h) && isnan(t) || isnan(f)) {
+    Serial.println(F("Failed to read from DHT sensor!"));
+    return;
+  }
+  float hif = dht.computeHeatIndex(f, h);
+  float hic = dht.computeHeatIndex(t, h, false);
+
+  Serial.print(F("Humidity: "));
+  Serial.print(h);
+  Serial.print(F("%  Temperature: "));
+  Serial.print(t);
+  Serial.print(F("°C "));
+  Serial.print(f);
+  Serial.print(F("°F  Heat index: "));
+  Serial.print(hic);
+  Serial.print(F("°C "));
+  Serial.print(hif);
+  Serial.println(F("°F"));
+  if (h <= 44 && t >= 27 && t <= 32.5)  {
+    String LineText;
+    String string1 = "/ธงสีเขียว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 44.6 && h <= 49.5 && t >= 27 && t <= 31.5) {
+    String LineText;
+    String string1 = "/ธงสีเขียว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 54.6 && h <= 59.5 && t >= 27 && t <= 30.5) {
+    String LineText;
+    String string1 = "/ธงสีเขียว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 59.6 && h <= 69.5 && t >= 27 && t <= 29.5) {
+    String LineText;
+    String string1 = "/ธงสีเขียว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 69.6 && h <= 84.5 && t >= 27 && t <= 28.5) {
+    String LineText;
+    String string1 = "/ธงสีเขียว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 84.6 && h <= 100 && t == 27) {
+    String LineText;
+    String string1 = "/ธงสีเขียว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h <= 44.5 && t >= 32.6 && t <= 36.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 44.6 && h <= 49.5 && t>= 31.6 && t <= 35.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 49.6 && h <= 54.5 && t >= 30.6 && t <= 34.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 54.6 && h <= 59.5 && t >= 30.6 && t <= 33.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 59.6 && h <= 69.5 && t >= 29.6 && t <= 32.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 69.6 && h <= 79.5 && t >= 28.6 && t <= 31.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 79.6 && h <= 84.5 && t >= 28.6 && t <= 30.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 84.6 && h <= 89.5 && t >= 27.6 && t <= 30.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 89.6 && h <= 99.5 && t >= 27.6 && t <= 29.5) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h == 100 && t == 28) {
+    String LineText;
+    String string1 = "/ธงสีเหลือง /ฝึก 45 นาที พัก 15 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h <= 44.5 && t >= 36.6 && t <= 41.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 44.6 && h <= 49.5 && t >= 35.6 && t <= 40.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 49.5 && h <= 54.5 && t >= 34.6 && t <= 38.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 54.6 && h <= 59.5 && t >= 33.6 && t <= 37.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 59.6 && h <= 64.5 && t >= 32.6 && t <= 37.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 64.6 && h <= 69.5 && t >= 32.6 && t <= 36.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 69.6 && h <= 74.5 && t >= 31.6 && t <= 35.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 74.6 && h <= 79.5 && t >= 31.6 && t <= 34.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 79.6 && h <= 89.5 && t >= 30.6 && t <= 33.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 89.6 && h <= 99.5 && t >= 29.6 && t <= 32.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h == 100 && t >= 28.6 && t <= 31.5) {
+    String LineText;
+    String string1 = "/ธงสีเเดง /ฝึก 30 นาที พัก 30 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h <= 44.5 && t >= 41.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 44.6 && h <= 49.5 && t >= 40.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 49.6 && h <= 54.5 && t >= 38.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 54.6 && h <= 64.5 && t >= 37.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 64.6 && h <= 69.5 && t  >= 36.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 69.6 && h <= 74.5 && t >= 35.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 74.6 && h <= 79.5 && t >= 34.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 79.6 && h <= 89.5 && t >= 33.6) {
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h >= 89.6 && h <= 99.5 && t >= 32.6) { 
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+  if (h == 100 && t >= 31.6) { 
+    String LineText;
+    String string1 = "/ธงสีดำ /ฝึก 20 นาที พัก 40 นาที/ ดื่มน้ำอย่างน้อย 1 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }
+if (t < 27) { 
+    String LineText;
+    String string1 = "/ธงสีขาว /ฝึกได้ต่อเนื่อง/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string2 = " °C";
+    String string3 = "   ความชื้น ";
+    String string4 = " %";
+    LineText = string1 + t + string2 + string3 + h + string4;
+    Serial.print("Line ");
+    Serial.println(LineText);
+    LINE.notify(LineText);
+  }  
+
+}
