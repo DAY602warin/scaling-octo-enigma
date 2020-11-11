@@ -457,7 +457,7 @@ void loop() {
   }
 if (t < 27) { 
     String LineText;
-    String string1 = "/ธงสีขาว /ฝึกได้ต่อเนื่อง/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
+    String string1 = "/ธงสีขาว /ฝึก 50 นาที พัก 10 นาที/ ดื่มน้ำอย่างน้อย 1/2 ลิตร  อุณหภูมิ ";
     String string2 = " °C";
     String string3 = "   ความชื้น ";
     String string4 = " %";
