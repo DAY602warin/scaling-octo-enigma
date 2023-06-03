@@ -1,7 +1,7 @@
 #include <TridentTD_LineNotify.h>
-#define SSID        "D@y"      // บรรทัดที่ 11 ให้ใส่ ชื่อ Wifi ที่จะเชื่อมต่อ
-#define PASSWORD    "12345668"     // บรรทัดที่ 12 ใส่ รหัส Wifi
-#define LINE_TOKEN  "TK5zbNevl0gHynQjVdMbPUfKGC1IQgycvYOHnSK55Hi"   // บรรทัดที่ 13 ใส่ รหัส TOKEN ที่ได้มาจากการสมัคร
+#define SSID        "602inf"      // บรรทัดนี้ ให้ใส่ ชื่อ Wifi ที่จะเชื่อมต่อ ในตัวอย่างชื่อ 602inf
+#define PASSWORD    "12345668"     // บรรทัดนี้ ใส่ รหัส Wifi ในตั้วอย่างรหัส 12345668
+#define LINE_TOKEN  "TK5zbNevl0gHynQjVdMbPUfKGC1IQgycvYOHnSK55Hi"   // บรรทัดนี้ ใส่ รหัส TOKEN ที่ได้มาจากการสมัคร
 #include "DHT.h"
 #define DHTPIN D1
 #define DHTTYPE DHT11
